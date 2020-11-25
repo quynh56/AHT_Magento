@@ -1,4 +1,5 @@
 <?php
+
 namespace AHT\Blog\Controller\Index;
 
 class Delete extends \Magento\Framework\App\Action\Action
@@ -19,20 +20,19 @@ class Delete extends \Magento\Framework\App\Action\Action
 		\Magento\Framework\App\Action\Context $context,
 		\Magento\Framework\View\Result\PageFactory $pageFactory,
 		\AHT\Blog\Model\PostFactory $postFactory,
-		\AHT\Blog\Model\PostRepository $postRepository, 
-		\Magento\Framework\Registry $coreRegistry, 
-		\Magento\Framework\Controller\ResultFactory $result, 
-		\Magento\Framework\App\Cache\TypeListInterface $cacheTypeList, 
+		\AHT\Blog\Model\PostRepository $postRepository,
+		\Magento\Framework\Registry $coreRegistry,
+		\Magento\Framework\Controller\ResultFactory $result,
+		\Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
 		\Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool
-		)
-	{
+	) {
 		$this->_pageFactory = $pageFactory;
 		$this->_postFactory = $postFactory;
 		$this->_postRepository = $postRepository;
 		$this->_coreRegistry = $coreRegistry;
 		$this->resultRedirect = $result;
 		$this->_cacheTypeList = $cacheTypeList;
-        $this->_cacheFrontendPool = $cacheFrontendPool;
+		$this->_cacheFrontendPool = $cacheFrontendPool;
 
 		return parent::__construct($context);
 	}
@@ -41,15 +41,15 @@ class Delete extends \Magento\Framework\App\Action\Action
 	{
 		$post_id = $this->getRequest()->getParam('post_id');
 		$this->_postRepository->deleteById($post_id);
-        
-        $types = array('config','layout','block_html','collections','reflection','db_ddl','eav','config_integration','config_integration_api','full_page','translate','config_webservice');
+
+		$types = array('config', 'layout', 'block_html', 'collections', 'reflection', 'db_ddl', 'eav', 'config_integration', 'config_integration_api', 'full_page', 'translate', 'config_webservice');
 		foreach ($types as $type) {
-		    $this->_cacheTypeList->cleanType($type);
+			$this->_cacheTypeList->cleanType($type);
 		}
 		foreach ($this->_cacheFrontendPool as $cacheFrontend) {
-		    $cacheFrontend->getBackend()->clean();
+			$cacheFrontend->getBackend()->clean();
 		}
-		
+
 		$resultRedirect = $this->resultRedirectFactory->create();
 		$resultRedirect->setPath('blog/index/index');
 		return $resultRedirect;

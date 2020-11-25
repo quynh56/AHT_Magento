@@ -1,4 +1,5 @@
 <?php
+
 namespace AHT\Blog\Model;
 
 use AHT\Blog\Api\Data\PostInterface;

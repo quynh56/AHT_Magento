@@ -1,4 +1,5 @@
 <?php
+
 namespace AHT\Blog\Controller\Index;
 
 class Edit extends \Magento\Framework\App\Action\Action
@@ -15,10 +16,9 @@ class Edit extends \Magento\Framework\App\Action\Action
 		\Magento\Framework\App\Action\Context $context,
 		\Magento\Framework\View\Result\PageFactory $pageFactory,
 		\AHT\Blog\Model\PostFactory $postFactory,
-		\AHT\Blog\Model\PostRepository $postRepository, 
+		\AHT\Blog\Model\PostRepository $postRepository,
 		\Magento\Framework\Registry $coreRegistry
-		)
-	{
+	) {
 		$this->_pageFactory = $pageFactory;
 		$this->_postFactory = $postFactory;
 		$this->_postRepository = $postRepository;
@@ -29,7 +29,7 @@ class Edit extends \Magento\Framework\App\Action\Action
 
 	public function execute()
 	{
-		
+
 		$post_id = $this->getRequest()->getParam('post_id');
 		$this->_coreRegistry->register('post_id', $post_id);
 		return $this->_pageFactory->create();

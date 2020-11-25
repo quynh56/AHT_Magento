@@ -1,4 +1,5 @@
 <?php
+
 namespace AHT\Blog\Block;
 
 class Edit extends \Magento\Framework\View\Element\Template
@@ -9,12 +10,11 @@ class Edit extends \Magento\Framework\View\Element\Template
 
 	public function __construct(
 		\Magento\Framework\View\Element\Template\Context $context,
-		 \AHT\Blog\Model\PostFactory $postFactory, 
-		 \AHT\Blog\Model\PostRepository $postRepository, 
-		\Magento\Framework\Registry $coreRegistry)
+		\AHT\Blog\Model\PostFactory $postFactory,
+		\AHT\Blog\Model\PostRepository $postRepository,
+		\Magento\Framework\Registry $coreRegistry
+	) {
 
-	{
-		
 		parent::__construct($context);
 		$this->postFactory = $postFactory;
 		$this->postRepository = $postRepository;
@@ -27,7 +27,7 @@ class Edit extends \Magento\Framework\View\Element\Template
 	}
 	public function getPost()
 	{
-        $post_id = $this->_coreRegistry->registry('post_id');
+		$post_id = $this->_coreRegistry->registry('post_id');
 		$post = $this->postRepository->getById($post_id);
 		return $post;
 	}
